@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quies/functions/startbtn.dart';
 import 'package:quies/pages/quizpage.dart';
 
 class HomePage extends StatelessWidget {
@@ -107,12 +108,7 @@ class HomePage extends StatelessWidget {
                             WidgetStatePropertyAll<Color>(Colors.black),
                       ),
                       onPressed: () async {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => QuizPage(),
-                          ),
-                        );
+                        startBtn(namecontroller.text, context);
                       },
                       child: Text("Let's Play Quiz"),
                     ),
