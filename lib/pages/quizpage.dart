@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:quies/pages/endpage.dart';
 import 'package:quies/pages/parts/qustionpart.dart';
 
@@ -150,10 +149,10 @@ class QuizPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                QustionsPart(),
-                QustionsPart(),
-                QustionsPart(),
-                QustionsPart(),
+                QustionsPart(name: "a1"),
+                QustionsPart(name: "a2"),
+                QustionsPart(name: "a3"),
+                QustionsPart(name: "a4"),
               ],
             ),
           ),

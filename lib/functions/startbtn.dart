@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quies/pages/quizpage.dart';
+import 'package:quies/pages/testpage.dart';
 
 void startBtn(String namecontroller, BuildContext context) {
   if (namecontroller.isEmpty == true) {
@@ -16,7 +16,7 @@ void startBtn(String namecontroller, BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const QuizPage(),
+        builder: (context) => const TestPage(),
       ),
     );
   }

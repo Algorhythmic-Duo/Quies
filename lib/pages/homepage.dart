@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quies/functions/startbtn.dart';
-import 'package:quies/pages/quizpage.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
