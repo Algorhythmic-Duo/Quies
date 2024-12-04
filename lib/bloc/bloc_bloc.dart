@@ -6,19 +6,18 @@ part 'bloc_event.dart';
 part 'bloc_state.dart';
 
 class BlocBloc extends Bloc<BlocEvent, BlocState> {
-  BlocBloc() : super(BlocInitial());
-
-  Stream<BlocState> mapEventToState(BlocEvent event) async* {
-    if (event is FetchDocId) {
-      yield BlocLoading();
+  BlocBloc() : super(BlocInitial()) {
+    on<FetchDocId>((event, emit) async {
+      emit(BlocLoading());
       try {
-        final queaysnapshot =
-            await FirebaseFirestore.instance.collection("quies").get();
-        final docuids = queaysnapshot.docs.map((doc) => doc.id).toList();
-        yield BlocLoaded(docuids);
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection('your_collection_name')
+            .get();
+        List<String> docids = querySnapshot.docs.map((doc) => doc.id).toList();
+        emit(BlocLoaded(docids));
       } catch (e) {
-        BlocError(e.toString());
+        emit(BlocError(e.toString()));
       }
-    }
+    });
   }
 }
