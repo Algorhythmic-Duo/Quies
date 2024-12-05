@@ -10,9 +10,8 @@ class BlocBloc extends Bloc<BlocEvent, BlocState> {
     on<FetchDocId>((event, emit) async {
       emit(BlocLoading());
       try {
-        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-            .collection('your_collection_name')
-            .get();
+        QuerySnapshot querySnapshot =
+            await FirebaseFirestore.instance.collection('quies').get();
         List<String> docids = querySnapshot.docs.map((doc) => doc.id).toList();
         emit(BlocLoaded(docids));
       } catch (e) {
