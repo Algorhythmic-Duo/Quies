@@ -20,14 +20,7 @@ class TestPage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (state is BlocLoaded) {
-              return ListView.builder(
-                itemCount: state.docids.length,
-                itemBuilder: (ctx, idx) {
-                  return ListTile(
-                    title: Text(state.docids[idx]),
-                  );
-                },
-              );
+              return Text(state.data['id']);
             } else if (state is BlocError) {
               return Center(
                 child: Text("Error: ${state.errormessage}"),

@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 
 class QustionsPart extends StatelessWidget {
   final String name;
-  const QustionsPart({super.key, required this.name});
+  final VoidCallback onPressed;
+  const QustionsPart({
+    super.key,
+    required this.name,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,7 @@ class QustionsPart extends StatelessWidget {
         bottom: 20.0,
       ),
       child: GestureDetector(
-        onTap: () {},
+        onTap: onPressed,
         child: Container(
           width: double.infinity,
           height: 65,
@@ -33,7 +38,7 @@ class QustionsPart extends StatelessWidget {
           child: Center(
             child: Text(
               name,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
