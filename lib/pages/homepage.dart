@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quies/functions/colors.dart';
 import 'package:quies/functions/startbtn.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,15 +12,8 @@ class HomePage extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 175, 0, 108),
-              Color.fromARGB(255, 204, 4, 127),
-              Color.fromARGB(255, 241, 15, 155),
-              Color.fromARGB(255, 255, 68, 183),
-            ],
-          ),
+        decoration: BoxDecoration(
+          gradient: background,
         ),
         child: Center(
           child: SingleChildScrollView(

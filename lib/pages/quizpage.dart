@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quies/bloc/bloc_bloc.dart';
+import 'package:quies/functions/colors.dart';
 import 'package:quies/pages/endpage.dart';
 import 'package:quies/pages/parts/qustionpart.dart';
 
@@ -46,16 +47,7 @@ class QuizPage extends StatelessWidget {
       ),
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 175, 0, 108),
-              Color.fromARGB(255, 204, 4, 127),
-              Color.fromARGB(255, 241, 15, 155),
-              Color.fromARGB(255, 255, 68, 183),
-            ],
-          ),
-        ),
+        decoration: BoxDecoration(gradient: background),
         child: BlocProvider(
           create: (context) => BlocBloc()..add(FetchDocId()),
           child: SafeArea(
