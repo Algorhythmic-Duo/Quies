@@ -13,14 +13,18 @@ class BlocLoading extends BlocState {}
 
 class BlocLoaded extends BlocState {
   final List<String> docids;
-  final Map<String, dynamic> data;
-  final List<String> usedids;
 
-  const BlocLoaded(this.docids, this.data, this.usedids);
+  const BlocLoaded(this.docids);
+
+  @override
+  List<Object> get props => [docids];
 }
 
 class BlocError extends BlocState {
   final String errormessage;
 
   const BlocError(this.errormessage);
+
+  @override
+  List<Object> get props => [errormessage];
 }

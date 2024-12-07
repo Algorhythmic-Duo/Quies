@@ -8,5 +8,3 @@ sealed class BlocEvent extends Equatable {
 }
 
 class FetchDocId extends BlocEvent {}
-
-class CheckAns extends BlocEvent {}
