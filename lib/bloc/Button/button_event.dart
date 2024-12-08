@@ -6,3 +6,7 @@ sealed class ButtonEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class CorrectOption extends ButtonEvent {}
+
+class WrongOption extends ButtonEvent {}

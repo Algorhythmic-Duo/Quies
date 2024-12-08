@@ -3,7 +3,8 @@ import 'package:quies/functions/colors.dart';
 import 'package:quies/functions/startbtn.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final List<String> dataList;
+  const HomePage({super.key, required this.dataList});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +102,7 @@ class HomePage extends StatelessWidget {
                             WidgetStatePropertyAll<Color>(Colors.black),
                       ),
                       onPressed: () async {
-                        startBtn(namecontroller.text, context);
+                        startBtn(namecontroller.text, context, dataList);
                       },
                       child: Text("Let's Play Quiz"),
                     ),

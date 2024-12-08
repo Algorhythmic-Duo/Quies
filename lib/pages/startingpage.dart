@@ -8,21 +8,23 @@ class StartingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> datalist = [];
     return BlocProvider(
       create: (context) => BlocBloc()..add(FetchDocId()),
       child: BlocBuilder<BlocBloc, BlocState>(
         builder: (context, state) {
           if (state is BlocLoading) {
-            return const HomePage();
+            return HomePage(dataList: datalist);
           } else if (state is BlocLoaded) {
-            return const HomePage();
+            datalist = state.docids;
+            return HomePage(dataList: state.docids);
           } else if (state is BlocError) {
             return Center(
               child: Text("Error: ${state.errormessage}"),
             );
           }
-          return const Center(
-            child: HomePage(),
+          return Center(
+            child: HomePage(dataList: datalist),
           );
         },
       ),
