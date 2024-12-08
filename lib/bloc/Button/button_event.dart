@@ -7,6 +7,16 @@ sealed class ButtonEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CorrectOption extends ButtonEvent {}
+class FetchDocId extends ButtonEvent {}
 
-class WrongOption extends ButtonEvent {}
+class CorrectOption extends ButtonEvent {
+  final int index;
+
+  const CorrectOption(this.index);
+}
+
+class WrongOption extends ButtonEvent {
+  final int index;
+
+  const WrongOption(this.index);
+}

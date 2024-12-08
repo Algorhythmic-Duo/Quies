@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class QustionsPart extends StatelessWidget {
   final String name;
   final VoidCallback onPressed;
+  final Color btnColor;
   const QustionsPart({
     super.key,
     required this.name,
     required this.onPressed,
+    required this.btnColor,
   });
 
   @override
@@ -28,7 +30,7 @@ class QustionsPart extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: btnColor,
                 spreadRadius: 1,
                 blurRadius: 2,
                 offset: const Offset(0, 2),

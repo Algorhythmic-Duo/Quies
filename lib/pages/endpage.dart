@@ -61,9 +61,7 @@ class EndPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomePage(
-                            dataList: [],
-                          ),
+                          builder: (context) => HomePage(),
                         ));
                   },
                   child: Text("Done"),
