@@ -3,7 +3,8 @@ import 'package:quies/functions/colors.dart';
 import 'package:quies/pages/homepage.dart';
 
 class EndPage extends StatelessWidget {
-  const EndPage({super.key});
+  final int score;
+  const EndPage({super.key, required this.score});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +35,8 @@ class EndPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 14.0),
               child: ListTile(
                 title: Text(
-                  "Your Scored 1/10",
-                  style: TextStyle(
+                  "Your Scored $score/10",
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 35.0,
                     fontWeight: FontWeight.w900,
@@ -64,7 +65,7 @@ class EndPage extends StatelessWidget {
                           builder: (context) => HomePage(),
                         ));
                   },
-                  child: Text("Done"),
+                  child: const Text("Done"),
                 ),
               ),
             ),

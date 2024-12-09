@@ -31,24 +31,28 @@ class ButtonBloc extends Bloc<ButtonEvent, ButtonState> {
       updateColor[event.index] = correctColor;
       emit(ColorChange(updateColor, state.count + 1, state.docIds,
           state.usedIds, state.data, state.quslist));
-      String startid = randomQustion(state.docIds, state.usedIds);
-      state.usedIds.add(startid);
-      Map<String, dynamic> data = await datafrombase(startid);
-      List<String> quslist = qustionsList(data);
-      emit(QustionChange(
-          data, state.count, state.docIds, state.usedIds, quslist));
+      if (state.usedIds.length < 10) {
+        String startid = randomQustion(state.docIds, state.usedIds);
+        state.usedIds.add(startid);
+        Map<String, dynamic> data = await datafrombase(startid);
+        List<String> quslist = qustionsList(data);
+        emit(QustionChange(
+            data, state.count, state.docIds, state.usedIds, quslist));
+      }
     });
     on<WrongOption>((event, emit) async {
       List<Color> updateColor = List<Color>.from(state.color);
       updateColor[event.index] = wrongColor;
       emit(ColorChange(updateColor, state.count, state.docIds, state.usedIds,
           state.data, state.quslist));
-      String startid = randomQustion(state.docIds, state.usedIds);
-      state.usedIds.add(startid);
-      Map<String, dynamic> data = await datafrombase(startid);
-      List<String> quslist = qustionsList(data);
-      emit(QustionChange(
-          data, state.count, state.docIds, state.usedIds, quslist));
+      if (state.usedIds.length < 10) {
+        String startid = randomQustion(state.docIds, state.usedIds);
+        state.usedIds.add(startid);
+        Map<String, dynamic> data = await datafrombase(startid);
+        List<String> quslist = qustionsList(data);
+        emit(QustionChange(
+            data, state.count, state.docIds, state.usedIds, quslist));
+      }
     });
   }
 }

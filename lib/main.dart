@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quies/bloc/Button/button_bloc.dart';
-import 'package:quies/bloc/starting/bloc_bloc.dart';
 import 'package:quies/pages/splishscreen.dart';
 
 void main() async {
@@ -16,11 +15,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => BlocBloc()),
-        BlocProvider(create: (context) => ButtonBloc())
-      ],
+    return BlocProvider(
+      create: (context) => ButtonBloc(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

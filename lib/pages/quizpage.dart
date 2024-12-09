@@ -35,7 +35,7 @@ class QuizPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EndPage(),
+                      builder: (context) => const EndPage(score: 0),
                     ),
                   );
                 },
@@ -126,40 +126,7 @@ class QuizPage extends StatelessWidget {
                         );
                       } else if (state is BlocLoaded) {
                         return QuziSection(
-                            onPresseds: () {
-                              if (state.quslist[0] ==
-                                  state.data["correctAns"]) {
-                                context
-                                    .read<ButtonBloc>()
-                                    .add(CorrectOption(0));
-                              } else {
-                                context.read<ButtonBloc>().add(WrongOption(0));
-                              }
-                              if (state.quslist[1] ==
-                                  state.data["correctAns"]) {
-                                context
-                                    .read<ButtonBloc>()
-                                    .add(CorrectOption(1));
-                              } else {
-                                context.read<ButtonBloc>().add(WrongOption(0));
-                              }
-                              if (state.quslist[2] ==
-                                  state.data["correctAns"]) {
-                                context
-                                    .read<ButtonBloc>()
-                                    .add(CorrectOption(2));
-                              } else {
-                                context.read<ButtonBloc>().add(WrongOption(0));
-                              }
-                              if (state.quslist[3] ==
-                                  state.data["correctAns"]) {
-                                context
-                                    .read<ButtonBloc>()
-                                    .add(CorrectOption(3));
-                              } else {
-                                context.read<ButtonBloc>().add(WrongOption(0));
-                              }
-                            },
+                            score: state.count,
                             quslist: state.quslist,
                             usedIds: state.usedIds,
                             data: state.data,
@@ -169,29 +136,9 @@ class QuizPage extends StatelessWidget {
                           child: Text("Error: ${state.errormessage}"),
                         );
                       }
+
                       return QuziSection(
-                          onPresseds: () {
-                            if (state.quslist[0] == state.data["correctAns"]) {
-                              context.read<ButtonBloc>().add(CorrectOption(0));
-                            } else {
-                              context.read<ButtonBloc>().add(WrongOption(0));
-                            }
-                            if (state.quslist[1] == state.data["correctAns"]) {
-                              context.read<ButtonBloc>().add(CorrectOption(1));
-                            } else {
-                              context.read<ButtonBloc>().add(WrongOption(0));
-                            }
-                            if (state.quslist[2] == state.data["correctAns"]) {
-                              context.read<ButtonBloc>().add(CorrectOption(2));
-                            } else {
-                              context.read<ButtonBloc>().add(WrongOption(0));
-                            }
-                            if (state.quslist[3] == state.data["correctAns"]) {
-                              context.read<ButtonBloc>().add(CorrectOption(3));
-                            } else {
-                              context.read<ButtonBloc>().add(WrongOption(0));
-                            }
-                          },
+                          score: state.count,
                           quslist: state.quslist,
                           usedIds: state.usedIds,
                           data: state.data,
