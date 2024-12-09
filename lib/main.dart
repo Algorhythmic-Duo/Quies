@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quies/bloc/Button/button_bloc.dart';
+import 'package:quies/bloc/progressbar/progressbar_bloc.dart';
 import 'package:quies/pages/splishscreen.dart';
 
 void main() async {
@@ -15,8 +16,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ButtonBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ButtonBloc()),
+        BlocProvider(create: (context) => ProgressbarBloc())
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

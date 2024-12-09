@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quies/bloc/Button/button_bloc.dart';
+import 'package:quies/bloc/progressbar/progressbar_bloc.dart';
 import 'package:quies/functions/colors.dart';
 import 'package:quies/functions/sectionquiz.dart';
+import 'package:quies/functions/timers.dart';
 import 'package:quies/pages/endpage.dart';
 
 class QuizPage extends StatelessWidget {
@@ -10,8 +12,15 @@ class QuizPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ButtonBloc()..add(FetchDocId()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ButtonBloc>(
+          create: (context) => ButtonBloc()..add(FetchDocId()),
+        ),
+        BlocProvider<ProgressbarBloc>(
+          create: (context) => ProgressbarBloc(),
+        ),
+      ],
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -55,55 +64,30 @@ class QuizPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 10.0,
-                      right: 10.0,
-                      top: 10.0,
-                    ),
-                    child: Stack(
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.white30,
-                            ),
+                  BlocListener<ProgressbarBloc, ProgressbarState>(
+                    listener: (context, state) {
+                      if (state is ProgressbarInitial) {
+                        context.read<ProgressbarBloc>().add(StartProgress());
+                      } else if (state is ProgressbarComplete) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const EndPage(score: 0),
                           ),
-                          child: LinearProgressIndicator(
-                            value: 10,
-                            borderRadius: BorderRadius.circular(100),
-                            minHeight: 35,
-                            color: const Color.fromARGB(255, 3, 206, 172),
-                            backgroundColor: Colors.transparent,
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(
-                            left: 12.0,
-                            right: 12.0,
-                            top: 5.0,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 2.5),
-                                child: Text(
-                                  "Timer",
-                                  style: TextStyle(color: Colors.white70),
-                                ),
-                              ),
-                              Icon(
-                                Icons.timer_outlined,
-                                color: Colors.white70,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                        );
+                      }
+                    },
+                    child: BlocBuilder<ProgressbarBloc, ProgressbarState>(
+                      builder: (context, state) {
+                        if (state is ProgressbarInitial) {
+                          return const CircularProgressIndicator(); // Show a loading indicator while initializing
+                        } else if (state is ProgressbarLoading) {
+                          return TimerLoader(values: state.progress);
+                        } else if (state is ProgressbarComplete) {
+                          return Container(); // Return an empty container when complete
+                        }
+                        return const TimerLoader(values: 0);
+                      },
                     ),
                   ),
                   const Padding(
@@ -126,25 +110,26 @@ class QuizPage extends StatelessWidget {
                         );
                       } else if (state is BlocLoaded) {
                         return QuziSection(
-                            score: state.count,
-                            quslist: state.quslist,
-                            usedIds: state.usedIds,
-                            data: state.data,
-                            color: state.color);
+                          score: state.count,
+                          quslist: state.quslist,
+                          usedIds: state.usedIds,
+                          data: state.data,
+                          color: state.color,
+                        );
                       } else if (state is BlocError) {
                         return Center(
                           child: Text("Error: ${state.errormessage}"),
                         );
                       }
-
                       return QuziSection(
-                          score: state.count,
-                          quslist: state.quslist,
-                          usedIds: state.usedIds,
-                          data: state.data,
-                          color: state.color);
+                        score: state.count,
+                        quslist: state.quslist,
+                        usedIds: state.usedIds,
+                        data: state.data,
+                        color: state.color,
+                      ); // Return default values for other states
                     },
-                  )
+                  ),
                 ],
               ),
             ),

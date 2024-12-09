@@ -1,6 +1,6 @@
 part of 'progressbar_bloc.dart';
 
-sealed class ProgressbarEvent extends Equatable {
+abstract class ProgressbarEvent extends Equatable {
   const ProgressbarEvent();
 
   @override
