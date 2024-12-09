@@ -1,26 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quies/bloc/Button/button_bloc.dart';
-import 'package:quies/bloc/progressbar/progressbar_bloc.dart';
 import 'package:quies/functions/colors.dart';
 import 'package:quies/functions/sectionquiz.dart';
 import 'package:quies/functions/timers.dart';
 import 'package:quies/pages/endpage.dart';
 
-class QuizPage extends StatelessWidget {
-  const QuizPage({super.key});
+class Quizpage extends StatefulWidget {
+  const Quizpage({super.key});
+
+  @override
+  State<Quizpage> createState() => _QuizpageState();
+}
+
+class _QuizpageState extends State<Quizpage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 60),
+    );
+    _controller.forward();
+    _controller.addStatusListener((sts) {
+      if (sts == AnimationStatus.completed) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EndPage(score: 0),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ButtonBloc>(
-          create: (context) => ButtonBloc()..add(FetchDocId()),
-        ),
-        BlocProvider<ProgressbarBloc>(
-          create: (context) => ProgressbarBloc(),
-        ),
-      ],
+    return BlocProvider<ButtonBloc>(
+      create: (context) => ButtonBloc()..add(FetchDocId()),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -64,31 +89,8 @@ class QuizPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  BlocListener<ProgressbarBloc, ProgressbarState>(
-                    listener: (context, state) {
-                      if (state is ProgressbarInitial) {
-                        context.read<ProgressbarBloc>().add(StartProgress());
-                      } else if (state is ProgressbarComplete) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const EndPage(score: 0),
-                          ),
-                        );
-                      }
-                    },
-                    child: BlocBuilder<ProgressbarBloc, ProgressbarState>(
-                      builder: (context, state) {
-                        if (state is ProgressbarInitial) {
-                          return const CircularProgressIndicator(); // Show a loading indicator while initializing
-                        } else if (state is ProgressbarLoading) {
-                          return TimerLoader(values: state.progress);
-                        } else if (state is ProgressbarComplete) {
-                          return Container(); // Return an empty container when complete
-                        }
-                        return const TimerLoader(values: 0);
-                      },
-                    ),
+                  TimerLoader(
+                    controller: _controller,
                   ),
                   const Padding(
                     padding: EdgeInsets.only(

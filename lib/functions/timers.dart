@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:quies/pages/endpage.dart';
 
 class TimerLoader extends StatelessWidget {
-  final double values;
-  const TimerLoader({super.key, required this.values});
+  final AnimationController controller;
+  const TimerLoader({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +24,16 @@ class TimerLoader extends StatelessWidget {
                 color: Colors.white30,
               ),
             ),
-            child: LinearProgressIndicator(
-              value: values,
-              borderRadius: BorderRadius.circular(100),
-              minHeight: 35,
-              color: const Color.fromARGB(255, 3, 206, 172),
-              backgroundColor: Colors.transparent,
-            ),
+            child: AnimatedBuilder(
+                builder: (context, child) => LinearProgressIndicator(
+                      value: controller.value,
+                      borderRadius: BorderRadius.circular(100),
+                      minHeight: 35,
+                      color: const Color.fromARGB(255, 3, 206, 172),
+                      backgroundColor: Colors.transparent,
+                    ),
+                animation: controller,
+                child: EndPage(score: 0)),
           ),
           const Padding(
             padding: EdgeInsets.only(

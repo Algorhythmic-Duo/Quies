@@ -16,7 +16,7 @@ Future<void> startBtn(String namecontroller, BuildContext context) async {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => QuizPage(),
+        builder: (context) => Quizpage(),
       ),
     );
   }
