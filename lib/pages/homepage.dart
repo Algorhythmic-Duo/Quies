@@ -73,8 +73,8 @@ class HomePage extends StatelessWidget {
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                           filled: true,
-                          fillColor:
-                              Color.fromARGB(255, 6, 1, 65).withOpacity(0.1),
+                          fillColor: const Color.fromARGB(255, 6, 1, 65)
+                              .withOpacity(0.1),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
                             borderSide: BorderSide.none,
@@ -103,7 +103,7 @@ class HomePage extends StatelessWidget {
                       onPressed: () async {
                         startBtn(namecontroller.text, context);
                       },
-                      child: Text("Let's Play Quiz"),
+                      child: const Text("Let's Play Quiz"),
                     ),
                   ),
                 ),
