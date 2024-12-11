@@ -20,15 +20,15 @@ class HomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 200,
                   height: 200,
                   child: Image(
                     image: AssetImage('asset/hot-air-balloon.png'),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 14.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 14.0),
                   child: ListTile(
                     title: Text(
                       "Let's Play Quiz",
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(
                             width: 1,
-                            color: Color.fromARGB(255, 255, 255, 255)),
+                            color: const Color.fromARGB(255, 255, 255, 255)),
                       ),
                       child: TextField(
                         controller: namecontroller,
